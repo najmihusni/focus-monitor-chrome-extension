@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Focus Monitor</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- 🔐 Auth Container -->
+  <div id="authContainer" class="container">
+    <div class="header">
+      <h2 id="authTitle">Focus Monitor</h2>
+      <p class="subtitle">Stay focused, stay productive</p>
+    </div>
+    
+    <div id="roleTabs" class="tabs">
+      <button id="studentTab" class="tab-button active">Student</button>
+      <button id="lecturerTab" class="tab-button">Instructor</button>
+    </div>
+
+    <!-- Sign Up Form -->
+    <form id="signupForm" class="auth-form">
+      <div class="form-group">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" name="name" required placeholder="Enter your full name" />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" required placeholder="Enter your email" />
+      </div>
+
+      <div class="form-group" id="matricGroup">
+        <label for="matric">Matric Number</label>
+        <input type="text" id="matric" name="matric_no" required placeholder="Enter matric number" />
+      </div>
+
+      <div class="form-group" id="staffGroup" style="display: none;">
+        <label for="staff">Staff ID</label>
+        <input type="text" id="staff" name="staff_id" placeholder="Enter staff ID" />
+      </div>
+
+      <input type="hidden" id="role" name="role" value="student" />
+      <button type="submit" class="primary-button">Create Account</button>
+    </form>
+
+    <!-- Sign In Form -->
+    <form id="signinForm" class="auth-form" style="display: none;">
+      <div class="form-group">
+        <label for="signinEmail">Email Address</label>
+        <input type="email" id="signinEmail" name="email" required placeholder="Enter your email" />
+      </div>
+      <button type="submit" class="primary-button">Sign In</button>
+    </form>
+
+    <!-- Toggle Links -->
+    <div id="authToggle" class="auth-toggle">
+      <p id="toSignin">Already have an account? <a href="#" id="switchToSignIn">Sign In</a></p>
+      <p id="toSignup" style="display: none;">Don't have an account? <a href="#" id="switchToSignUp">Sign Up</a></p>
+    </div>
+
+    <!-- Message Area -->
+    <div id="message" class="message-area"></div>
+  </div>
+
+  <!-- 🎯 Student App -->
+  <div id="studentApp" class="container" style="display: none;">
+    <div class="header">
+      <div class="header-top">
+        <div class="header-content">
+          <h1 id="studentGreeting">🎯 Focus Monitor</h1>
+          <p class="subtitle">Track your focus time</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Join Section -->
+    <div class="quick-join-section">
+      <div class="join-form">
+        <div class="form-group">
+          <label for="classPinInput">Enter Class PIN</label>
+          <div class="pin-input-group">
+            <input type="text" id="classPinInput" placeholder="000000" maxlength="6" />
+            <button id="joinClassBtn" type="button" class="primary-button">Join</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Focus Status -->
+    <div class="focus-status-section">
+      <div class="status-card" id="statusCard">
+        <div class="status-indicator">
+          <div class="status-dot" id="statusDot"></div>
+          <span id="status">Ready to Focus</span>
+        </div>
+        <div class="timer-display" id="timerDisplay">
+          <span class="timer-text">00:00</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Class Info -->
+    <div id="activeClassInfo" class="active-class-info" style="display: none;">
+      <div class="class-card">
+        <div class="class-header">
+          <h4 id="activeClassName">No Active Class</h4>
+          <div class="class-status" id="classStatus">Waiting...</div>
+        </div>
+        <div class="class-actions">
+          <button id="startFocusBtn" type="button" class="control-button start-button" style="display: none;">
+            <span class="button-icon">▶</span>
+            Start Focus
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- My Classes -->
+    <div id="myClassesSection" class="my-classes-section">
+      <h4>📚 My Classes</h4>
+      <div id="studentClassesList" class="classes-list">
+        <div class="loading">Loading classes...</div>
+      </div>
+    </div>
+<div id="focusInstructions" class="info-section" style="background: #f0fdf4; padding: 10px; border-radius: 6px; margin: 12px 0; border: 1px solid #bbf7d0;">
+  <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 6px;">
+    <span style="font-size: 14px;">💡</span>
+    <strong style="color: #16a34a; font-size: 12px; font-weight: 600;">Keep Focus Active</strong>
+  </div>
+  <p style="margin: 0; font-size: 11px; line-height: 1.4; color: #15803d;">
+    Open this popup every 2-3 minutes to maintain tracking
+  </p>
+</div>
+
+    <!-- Quick Actions -->
+    <div class="actions-section">
+      <a href="focus_chart.html" target="_blank" class="chart-link">
+        <span class="link-icon">📊</span>
+        View Statistics
+      </a>
+      <button id="studentLogoutBtn" type="button" class="logout-button">
+        <span class="button-icon">🚪</span>
+        Sign Out
+      </button>
+    </div>
+
+    <div id="uploadStatus" class="upload-status"></div>
+  </div>
+
+
+  <!-- 👨‍🏫 Lecturer App -->
+  <div id="lecturerApp" class="container" style="display: none;">
+    <div class="header">
+      <div class="header-top">
+        <div class="header-content">
+          <h1 id="lecturerGreeting">👨‍🏫 Focus Monitor</h1>
+          <p class="subtitle">Manage your classes</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Create Class -->
+    <div class="quick-create-section">
+      <button id="createClassBtn" type="button" class="primary-button create-class-btn">
+        <span class="button-icon">➕</span>
+        Create New Class
+      </button>
+      
+      <div id="createClassForm" class="create-class-form" style="display: none;">
+        <div class="form-group">
+          <label for="className">Class Name</label>
+          <input type="text" id="className" placeholder="e.g., Computer Science 101" required />
+        </div>
+        
+        <div class="form-group">
+          <label for="classSchedule">Schedule (Optional)</label>
+          <input type="text" id="classSchedule" placeholder="e.g., Monday 9:00 AM - 11:00 AM" />
+        </div>
+        
+        <div class="form-group">
+          <label for="classPin">Class PIN</label>
+          <div class="pin-display-group">
+            <input type="text" id="classPin" readonly placeholder="Auto-generated" />
+            <button type="button" id="generatePinBtn" class="secondary-button">
+              <span class="button-icon">🔄</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+  <label for="classDuration">Session Duration</label>
+  <select id="classDuration">
+    <option value="60">1 Hour</option>
+    <option value="120">2 Hours</option>
+  </select>
+</div>
+        
+        <div class="form-buttons">
+          <button id="saveClassBtn" type="button" class="primary-button">Create</button>
+          <button id="cancelClassBtn" type="button" class="secondary-button">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Session Status -->
+    <div id="activeSession" class="active-session" style="display: none;">
+      <div class="session-header">
+        <h4>⚪ Live Session</h4>
+        <button id="stopSessionBtn" type="button" class="control-button stop-button">
+          <span class="button-icon">⏹</span>
+          End Session
+        </button>
+      </div>
+      <div class="session-info">
+        <div class="session-class" id="activeSessionClassName">Class Name</div>
+        <div class="session-stats" id="sessionStats">
+          <span class="stat-item">👥 <span id="activeStudents">0</span> students</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Classes List -->
+    <div class="my-classes-section">
+      <h4>📚 My Classes</h4>
+      <div id="classesList" class="classes-list">
+        <div class="loading">Loading classes...</div>
+      </div>
+    </div>
+
+    <div class="actions-section">
+      <button id="lecturerLogoutBtn" type="button" class="logout-button">
+        <span class="button-icon">🚪</span>
+        Sign Out
+      </button>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

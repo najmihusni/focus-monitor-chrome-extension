@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Focus Monitoring Dashboard</title>
+  <link rel="stylesheet" href="chart_style.css" />
+</head>
+<body>
+  <div class="chart-container">
+    <h2>📈 Focus Monitoring Dashboard</h2>
+
+    <!-- User Info Section -->
+    <div class="user-info" id="userInfo">
+      <span id="welcomeText">Loading user information...</span>
+      <span class="role-badge" id="roleBadge"></span>
+    </div>
+
+    <!-- Controls Section -->
+    <div class="controls">
+      <!-- Common Controls -->
+      <div class="control-group">
+        <label for="dateSelector">📅 Select Date</label>
+        <select id="dateSelector">
+          <option value="">Loading dates...</option>
+        </select>
+      </div>
+
+      <!-- Lecturer-only Controls -->
+      <div class="lecturer-controls" id="lecturerControls">
+        <div class="control-group class-filter">
+          <label for="classSelect">📚 Select Class</label>
+          <select id="classSelect">
+            <option value="">All Classes</option>
+          </select>
+        </div>
+        
+        <div class="control-group">
+          <label for="userSelect">👤 Select Student</label>
+          <select id="userSelect">
+            <option value="">All Students</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Overview (Lecturer) -->
+    <div class="stats-overview" id="statsOverview">
+      <div class="stat-card">
+        <h3>Total Students</h3>
+        <div class="stat-value" id="totalStudents">0</div>
+        <div class="stat-label">Enrolled</div>
+      </div>
+      <div class="stat-card">
+        <h3>Active Students</h3>
+        <div class="stat-value" id="activeStudents">0</div>
+        <div class="stat-label">Currently Focused</div>
+      </div>
+      <div class="stat-card">
+        <h3>Average Focus</h3>
+        <div class="stat-value" id="averageFocus">0%</div>
+        <div class="stat-label">Today</div>
+      </div>
+      <div class="stat-card">
+        <h3>Class Performance</h3>
+        <div class="stat-value" id="classPerformance">Good</div>
+        <div class="stat-label">Overall</div>
+      </div>
+    </div>
+
+    <!-- Student List (Lecturer) -->
+    <div class="student-list" id="studentList">
+      <h3>Student Focus Status</h3>
+      <div class="students-grid" id="studentsGrid">
+        <!-- Student cards will be populated here -->
+      </div>
+    </div>
+
+    <!-- Chart Options -->
+    <div class="chart-options">
+      <div class="chart-option">
+        <input type="checkbox" id="toggleDetailed" />
+        <label for="toggleDetailed">Show Detailed View</label>
+      </div>
+      
+      <div class="chart-option" id="comparisonOption" style="display: none;">
+        <input type="checkbox" id="showComparison" />
+<label for="showComparison">Show All Students</label>      </div>
+    </div>
+
+    <!-- Chart Area -->
+    <div class="chart-area">
+      <div class="y-axis-title">Focus Accuracy (%)</div>
+
+      <!-- Legend -->
+      <div class="chart-legend">
+        <div><span class="dot green"></span>80-100%: Focused</div>
+        <div><span class="dot yellow"></span>50-79%: Moderate Focus</div>
+        <div><span class="dot red"></span>Below 50%: Distracted</div>
+      </div>
+
+      <!-- Chart -->
+      <canvas id="focusLineChart" width="800" height="400"></canvas>
+      <div class="x-axis-title">Time (every 10 min)</div>
+    </div>
+
+    <!-- Summary Section -->
+    <div class="summary-section">
+  <h3 id="summaryHeader">📊 Session Summary</h3>
+  <table id="summaryTable">
+        <thead>
+          <tr>
+            <th>Time Period</th>
+            <th>Focus Level</th>
+            <th>Duration</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Summary data will be populated here -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Export Controls -->
+    <div class="export-controls">
+  <button class="export-btn secondary" id="refreshData">🔄 Refresh Data</button>
+</div>
+
+  <script src="focus_chart.js" defer></script>
+</body>
+</html>

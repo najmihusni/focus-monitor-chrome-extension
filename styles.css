@@ -1,0 +1,785 @@
+/* -------------------- Base Styles -------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  width: 300px;
+  height: 500px;
+  background: #f8fafc;
+  color: #334155;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* -------------------- Container -------------------- */
+.container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+  overflow-x: hidden; /* Prevent horizontal overflow */
+}
+
+/* -------------------- Header -------------------- */
+.header {
+  text-align: center;
+  margin-bottom: 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #e2e8f0;
+  position: relative;
+  flex-shrink: 0; /* Prevent header from shrinking */
+}
+
+.header h1,
+.header h2 {
+  font-size: 16px; /* Slightly smaller for better fit */
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+  line-height: 1.3;
+}
+
+.subtitle {
+  font-size: 11px;
+  color: #64748b;
+  margin: 0;
+}
+
+/* -------------------- Header Top Layout -------------------- */
+.header-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.header-content {
+  flex: 1;
+  text-align: center;
+}
+
+.header-content h1 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 4px;
+}
+
+/* -------------------- Tabs -------------------- */
+.tabs {
+  display: flex;
+  background: #f1f5f9;
+  border-radius: 6px;
+  padding: 3px;
+  margin-bottom: 12px;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.tab-button {
+  flex: 1;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 4px;
+  background: transparent;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tab-button.active {
+  background: #ffffff;
+  color: #3b82f6;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.tab-button:hover:not(.active) {
+  color: #475569;
+}
+
+/* -------------------- Forms -------------------- */
+.auth-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 0; /* Allow flex items to shrink */
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+label {
+  font-size: 11px;
+  font-weight: 500;
+  color: #374151;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="time"],
+select {
+  padding: 8px 10px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 12px;
+  transition: all 0.2s ease;
+  background: #ffffff;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}
+
+input::placeholder {
+  color: #9ca3af;
+}
+
+/* -------------------- Buttons -------------------- */
+.primary-button {
+  padding: 8px 14px;
+  background: #3b82f6;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.primary-button:hover {
+  background: #2563eb;
+}
+
+.primary-button:active {
+  transform: translateY(1px);
+}
+
+.secondary-button {
+  padding: 6px 12px;
+  background: #ffffff;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.secondary-button:hover {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+/* -------------------- Student Specific Sections -------------------- */
+.quick-join-section {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.join-form .form-group {
+  margin-bottom: 8px;
+}
+
+.pin-input-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pin-input-group input {
+  flex: 1;
+  background-color: #f9fafb;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.pin-input-group .primary-button {
+  margin-top: 0;
+  padding: 8px 12px;
+  font-size: 11px;
+}
+
+/* -------------------- Focus Status Section -------------------- */
+.focus-status-section {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.status-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.status-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.6);
+  transition: all 0.2s ease;
+}
+
+.status-dot.active {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.timer-display {
+  text-align: center;
+}
+
+.timer-text {
+  display: block;
+  font-size: 24px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* -------------------- Active Class Info -------------------- */
+.active-class-info {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.class-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+.class-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.class-header h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 0;
+}
+
+.class-status {
+  font-size: 10px;
+  color: #059669;
+  font-weight: 500;
+}
+
+.class-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.control-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  padding: 6px 8px;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.control-button:hover:not(:disabled) {
+  border-color: #cbd5e1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.control-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.start-button {
+  border-color: #10b981;
+  color: #10b981;
+}
+
+.start-button:hover:not(:disabled) {
+  background: #10b981;
+  color: white;
+}
+
+.stop-button {
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+.stop-button:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+}
+
+.button-icon {
+  font-size: 12px;
+}
+
+/* -------------------- My Classes Section -------------------- */
+.my-classes-section {
+  flex: 1;
+  min-height: 0;
+  margin-bottom: 16px;
+}
+
+.my-classes-section h4 {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.classes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 120px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.classes-list::-webkit-scrollbar {
+  width: 3px;
+}
+
+.classes-list::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+.classes-list::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 2px;
+}
+
+.class-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.class-item:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.class-info {
+  flex: 1;
+  min-width: 0; /* Allow text to truncate */
+}
+
+.class-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.class-time {
+  font-size: 10px;
+  color: #64748b;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.class-pin {
+  font-size: 10px;
+  color: #059669;
+  margin-top: 2px;
+}
+
+.class-pin strong {
+  font-family: 'Courier New', monospace;
+  background-color: #d1fae5;
+  padding: 1px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+}
+
+.class-actions {
+  display: flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.class-actions .control-button {
+  font-size: 9px;
+  padding: 4px 6px;
+}
+
+.class-actions .control-button .button-icon {
+  font-size: 10px;
+}
+
+/* -------------------- Lecturer Specific Sections -------------------- */
+.quick-create-section {
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.create-class-btn {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.create-class-form {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 12px;
+  margin-top: 8px;
+}
+
+.create-class-form .form-group {
+  margin-bottom: 10px;
+}
+
+.create-class-form .form-group:last-child {
+  margin-bottom: 12px;
+}
+
+.pin-display-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pin-display-group input {
+  flex: 1;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.form-buttons .primary-button,
+.form-buttons .secondary-button {
+  flex: 1;
+  margin-top: 0;
+}
+
+/* -------------------- Active Session -------------------- */
+.active-session {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  color: white;
+  border-radius: 6px;
+  padding: 10px;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+}
+
+.session-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 6px;
+}
+
+.session-header h4 {
+  font-size: 12px;
+  font-weight: 600;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.session-controls .control-button {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  font-size: 9px;
+  padding: 4px 6px;
+}
+
+.session-controls .control-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.session-class {
+  font-size: 11px;
+  font-weight: 500;
+  opacity: 0.9;
+}
+
+.session-stats {
+  display: flex;
+  gap: 10px;
+  font-size: 10px;
+  opacity: 0.8;
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+/* -------------------- Actions Section -------------------- */
+.actions-section {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+  padding-top: 8px;
+}
+
+.chart-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
+  color: #475569;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.chart-link:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.link-icon {
+  font-size: 12px;
+}
+
+.logout-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #ffffff;
+  border: 1px solid #fecaca;
+  border-radius: 4px;
+  color: #dc2626;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.logout-button:hover {
+  background: #fef2f2;
+  border-color: #fca5a5;
+}
+
+/* -------------------- Auth Toggle -------------------- */
+.auth-toggle {
+  text-align: center;
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid #f1f5f9;
+  flex-shrink: 0;
+}
+
+.auth-toggle p {
+  font-size: 11px;
+  color: #64748b;
+  margin: 0;
+}
+
+.auth-toggle a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.auth-toggle a:hover {
+  text-decoration: underline;
+}
+
+/* -------------------- Message Area -------------------- */
+.message-area {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 4px;
+  font-size: 11px;
+  text-align: center;
+  display: none;
+  flex-shrink: 0;
+}
+
+.message-area.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  display: block;
+}
+
+.message-area.success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  display: block;
+}
+
+/* -------------------- Upload Status -------------------- */
+.upload-status {
+  margin-top: 6px;
+  padding: 4px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  text-align: center;
+  display: none;
+  flex-shrink: 0;
+}
+
+.upload-status.success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #16a34a;
+  display: block;
+}
+
+.upload-status.error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #dc2626;
+  display: block;
+}
+
+/* -------------------- Loading and Empty States -------------------- */
+.loading, .no-classes, .error {
+  text-align: center;
+  padding: 16px 8px;
+  color: #64748b;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.no-classes {
+  color: #64748b;
+}
+
+/* -------------------- Disabled States -------------------- */
+.start-session-btn:disabled {
+  background: #94a3b8;
+  color: white;
+  border-color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.start-session-btn:disabled:hover {
+  background: #94a3b8;
+  border-color: #94a3b8;
+  transform: none;
+}
+
+/* -------------------- Form Helpers -------------------- */
+.form-hint {
+  display: block;
+  margin-top: 3px;
+  color: #6b7280;
+  font-size: 10px;
+  font-style: italic;
+}
+
+/* -------------------- Responsive Adjustments -------------------- */
+@media (max-height: 450px) {
+  .container {
+    padding: 12px;
+  }
+  
+  .header {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+  }
+  
+  .classes-list {
+    max-height: 80px;
+  }
+  
+  .my-classes-section,
+  .quick-join-section,
+  .quick-create-section {
+    margin-bottom: 12px;
+  }
+}
