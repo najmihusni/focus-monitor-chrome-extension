@@ -1,362 +1,346 @@
-# Focus Monitor Chrome Extension 🎯
-
-A comprehensive focus monitoring system for online learning environments that uses computer vision to track student attention during virtual classes.
-
-## 📋 Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [System Requirements](#system-requirements)
-- [Installation](#installation)
-- [Quick Start Guide](#quick-start-guide)
-- [Usage](#usage)
-- [Architecture](#architecture)
-- [API Documentation](#api-documentation)
-- [Troubleshooting](#troubleshooting)
-- [Contributing](#contributing)
-- [License](#license)
-
-## 🔍 Overview
-
-Focus Monitor is an educational technology solution that helps lecturers monitor student engagement in online classes through automated focus tracking. The system uses MediaPipe and OpenCV for accurate face detection and eye tracking, providing real-time analytics on student attention levels.
-
-### Key Components
-- **Chrome Extension**: Student and lecturer interfaces
-- **Flask Backend**: Computer vision processing server
-- **PostgreSQL Database**: Data storage via Supabase
-- **Analytics Dashboard**: Real-time focus visualization
-
-## ✨ Features
-
-### For Students
-- ✅ Automatic session detection when lecturer starts monitoring
-- ✅ Real-time focus tracking with accuracy percentage
-- ✅ Personal focus history and performance analytics
-- ✅ Simple class joining via 6-digit PIN codes
-- ✅ Background monitoring without disrupting workflow
-
-### For Lecturers
-- ✅ Create and manage multiple classes
-- ✅ Real-time monitoring of all enrolled students
-- ✅ Class-wide performance analytics and trends
-- ✅ Individual student focus reports
-- ✅ Session management with start/stop controls
-
-### Technical Features
-- ✅ MediaPipe face mesh for accurate detection
-- ✅ Eye Aspect Ratio (EAR) calculation for focus analysis
-- ✅ Multi-user concurrent session support
-- ✅ Docker containerized deployment
-- ✅ Secure authentication and data storage
-
-## 💻 System Requirements
-
-### Minimum Requirements
-- **Browser**: Google Chrome 88+ or Microsoft Edge 88+
-- **Operating System**: Windows 10+, macOS 10.14+, or Linux Ubuntu 18.04+
-- **RAM**: 4GB minimum, 8GB recommended
-- **Internet**: Stable broadband connection
-- **Hardware**: Webcam with 720p resolution
-
-### Development Requirements
-- **Python**: 3.9+
-- **Node.js**: 14+ (for development tools)
-- **Docker**: Latest version for deployment
-
-## 🚀 Installation
-
-### Method 1: Manual Installation (Recommended for Testing)
-
-#### Step 1: Download the Extension
-```bash
-git clone https://github.com/yourusername/focus-monitor-extension.git
-cd focus-monitor-extension
-```
-
-#### Step 2: Install Chrome Extension
-1. Open Google Chrome
-2. Navigate to `chrome://extensions/`
-3. Enable "Developer mode" (toggle in top-right corner)
-4. Click "Load unpacked"
-5. Select the `Focus-Monitor-Extension` folder
-6. Pin the extension to your toolbar for easy access
-
-#### Step 3: Verify Installation
-1. Look for the Focus Monitor icon in Chrome toolbar
-2. Click the icon to open the extension popup
-3. You should see the login/signup interface
-
-### Method 2: Backend Setup (For Development)
-
-#### Prerequisites
-```bash
-# Install Python dependencies
-pip install -r requirements.txt
-
-# Install system dependencies (Ubuntu/Debian)
-sudo apt-get update
-sudo apt-get install libglib2.0-0 libsm6 libxext6 libxrender-dev libgomp1
-```
-
-#### Environment Configuration
-Create a `.env` file in the backend directory:
-```env
-user=your_db_user
-password=your_db_password
-host=your_supabase_host
-port=5432
-dbname=postgres
-```
-
-#### Run Backend Server
-```bash
-python app.py
-```
-Server will start at `http://localhost:5050`
-
-### Method 3: Docker Deployment
-```bash
-# Build Docker image
-docker build -t focus-monitor-backend .
-
-# Run container
-docker run -p 5050:5050 --env-file .env focus-monitor-backend
-```
-
-## 🎯 Quick Start Guide
-
-### For Students
-
-1. **Install Extension** (see installation steps above)
-2. **Create Account**:
-   - Click Focus Monitor icon
-   - Select "Sign Up"
-   - Enter: Name, Email, Matric Number
-   - Choose "Student" role
-3. **Join Class**:
-   - Get 6-digit PIN from lecturer
-   - Enter PIN in "Enter Class PIN" field
-   - Click "Join Class"
-4. **Automatic Monitoring**:
-   - Wait for lecturer to start session
-   - Extension automatically begins tracking when session starts
-   - View your focus percentage in real-time
-
-### For Lecturers
-
-1. **Install Extension** (see installation steps above)
-2. **Create Account**:
-   - Click Focus Monitor icon
-   - Select "Sign Up"
-   - Enter: Name, Email, Staff ID
-   - Choose "Lecturer" role
-3. **Create Class**:
-   - Click "Create New Class"
-   - Enter class name and schedule
-   - Note the generated 6-digit PIN
-   - Share PIN with students
-4. **Start Monitoring**:
-   - Ensure students have joined using PIN
-   - Click "Start Session"
-   - Monitor real-time student focus data
-   - Click "Stop Session" when finished
-
-## 📖 Usage
-
-### Student Workflow
-```mermaid
-graph LR
-    A[Install Extension] --> B[Sign Up]
-    B --> C[Join Class with PIN]
-    C --> D[Wait for Session]
-    D --> E[Automatic Focus Tracking]
-    E --> F[View Personal Analytics]
-```
-
-### Lecturer Workflow
-```mermaid
-graph LR
-    A[Install Extension] --> B[Sign Up]
-    B --> C[Create Class]
-    C --> D[Share PIN with Students]
-    D --> E[Start Monitoring Session]
-    E --> F[Monitor Real-time Data]
-    F --> G[View Class Analytics]
-```
-
-### Focus Detection Levels
-- **🟢 Focused (80-100%)**: Eyes open, looking at screen center
-- **🟡 Moderate (50-79%)**: Eyes open, slightly off-center gaze
-- **🔴 Distracted (<50%)**: Eyes closed, looking away, or no face detected
-
-## 🏗️ Architecture
-
-### System Overview
-```
-┌─────────────────┐    ┌──────────────────┐    ┌─────────────────┐
-│   Chrome        │    │   Flask Backend  │    │   PostgreSQL   │
-│   Extension     │◄──►│   (Python)       │◄──►│   (Supabase)    │
-│                 │    │                  │    │                 │
-│ • Student UI    │    │ • MediaPipe CV   │    │ • User Data     │
-│ • Lecturer UI   │    │ • Focus Analysis │    │ • Focus Logs    │
-│ • Auto Capture  │    │ • API Endpoints  │    │ • Class Info    │
-└─────────────────┘    └──────────────────┘    └─────────────────┘
-```
-
-### Tech Stack
-- **Frontend**: HTML5, CSS3, JavaScript (Chrome Extension APIs)
-- **Backend**: Python Flask, MediaPipe, OpenCV
-- **Database**: PostgreSQL (Supabase)
-- **Deployment**: Docker, Render Cloud Platform
-- **Computer Vision**: MediaPipe Face Mesh, Eye Aspect Ratio (EAR)
-
-## 📡 API Documentation
-
-### Main Endpoints
-
-#### Upload Screenshot
-```http
-POST /api/upload
-Content-Type: multipart/form-data
-
-Parameters:
-- screenshot: Image file
-- user_id: UUID string
-
-Response:
-{
-  "status": "Focused|Distracted|Partially Focused",
-  "accuracy": 85.5,
-  "timestamp": "20241201_143022",
-  "details": "Face detected, EAR=(0.25, 0.23)"
-}
-```
-
-#### Get Focus History
-```http
-GET /api/focus/history
-
-Response:
-[
-  {
-    "user_name": "John Doe",
-    "status": "Focused",
-    "accuracy": 92.3,
-    "timestamp": "20241201_143022"
-  }
-]
-```
-
-#### Get Grouped Analytics
-```http
-GET /api/focus/grouped-history
-
-Response:
-{
-  "John Doe": {
-    "2024-12-01": {
-      "14:30": 92.3,
-      "14:40": 88.7
-    }
-  }
-}
-```
-
-## 🔧 Troubleshooting
-
-### Common Issues
-
-#### Extension Won't Install
-- **Issue**: Extension fails to load
-- **Solution**: 
-  1. Ensure Developer Mode is enabled
-  2. Check that `manifest.json` exists in root folder
-  3. Try reloading the extension
-
-#### Focus Detection Inaccurate
-- **Issue**: Wrong focus readings
-- **Solutions**:
-  1. Ensure good lighting on face
-  2. Position camera at eye level
-  3. Keep face clearly visible to webcam
-  4. Avoid reflective glasses if possible
-
-#### Session Won't Start
-- **Issue**: Students can't detect active session
-- **Solutions**:
-  1. Check internet connection
-  2. Verify students joined correct class (PIN)
-  3. Ensure lecturer clicked "Start Session"
-  4. Wait up to 10 seconds for auto-detection
-
-#### Backend Connection Failed
-- **Issue**: Screenshots not processing
-- **Solutions**:
-  1. Check if backend server is running
-  2. Verify API endpoint URL in extension
-  3. Check firewall/network restrictions
-  4. Ensure database connection is working
-
-### Performance Optimization
-
-#### For Better Accuracy
-- Use consistent lighting
-- Position webcam at eye level
-- Maintain 18-24 inches from camera
-- Avoid busy backgrounds
-
-#### For Better Performance
-- Close unnecessary browser tabs
-- Ensure stable internet connection
-- Use Chrome (recommended over other browsers)
-- Keep extension updated
-
-## 🔐 Privacy & Security
-
-- Screenshots are processed immediately and not permanently stored
-- User data is encrypted in transit and at rest
-- No personal data is shared with third parties
-- Users can delete their data at any time
-- Compliance with educational privacy standards
-
-## 🤝 Contributing
-
-We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
-
-### Development Setup
-1. Fork the repository
-2. Create a feature branch: `git checkout -b feature-name`
-3. Make your changes and test thoroughly
-4. Submit a pull request with detailed description
-
-### Reporting Issues
-Please use GitHub Issues to report bugs or request features. Include:
-- Detailed description of the issue
-- Steps to reproduce
-- Expected vs actual behavior
-- Browser and OS information
-- Screenshots if applicable
-
-## 📄 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 📞 Support
-
-- **Documentation**: [Wiki](https://github.com/yourusername/focus-monitor/wiki)
-- **Issues**: [GitHub Issues](https://github.com/yourusername/focus-monitor/issues)
-- **Email**: support@focusmonitor.edu
-- **Discord**: [Join our community](https://discord.gg/focusmonitor)
-
-## 🙏 Acknowledgments
-
-- **MediaPipe Team** for excellent face detection library
-- **OpenCV Community** for computer vision tools
-- **Supabase** for database infrastructure
-- **Contributors** who helped improve this project
+# User Acceptance Testing (UAT) Plan 🧪
+
+## Focus Monitor Chrome Extension - UAT Protocol
+
+### 📋 Test Overview
+- **Duration:** 30 minutes
+- **Participants:** 10 people (9 students + 1 educator) 
+- **Objective:** Validate multi-user functionality in real classroom environment
+- **Data Collection:** All results captured in Supabase PostgreSQL database
+- **Test Environment:** Concurrent user testing with live data processing
 
 ---
 
-**⭐ Star this repository if you find it helpful!**
+## 🚀 Pre-Test Setup (5 minutes)
 
-*Focus Monitor - Enhancing Online Learning Through Intelligent Attention Tracking*
+### Participant Requirements
+| Role | Count | Requirements |
+|------|-------|-------------|
+| Students | 9 | Chrome browser, stable internet, webcam access |
+| Educator | 1 | Chrome browser, class management access |
+
+### Installation Steps
+1. **All Participants:**
+   ```bash
+   # Install Focus Monitor Chrome Extension
+   1. Download extension folder
+   2. Open chrome://extensions/
+   3. Enable Developer Mode
+   4. Click "Load unpacked"
+   5. Select extension folder
+   ```
+
+2. **Account Creation:**
+   - **Students:** Name, Email, Matric Number → Select "Student" role
+   - **Educator:** Name, Email, Staff ID → Select "Lecturer" role
+
+3. **Verification Checklist:**
+   - [ ] Extension icon visible in Chrome toolbar
+   - [ ] Popup opens successfully
+   - [ ] Account creation completed
+   - [ ] User stored in Supabase `users` table
+
+---
+
+## 🎯 UAT Test Procedure
+
+### Phase 1: Class Setup & Enrollment (5 minutes)
+
+#### Educator Actions:
+```
+1. Open Focus Monitor extension
+2. Click "Create New Class"
+3. Enter: "UAT Test Session - [Date]"
+4. Note the generated 6-digit PIN
+5. Share PIN with all students via chat/verbal
+```
+
+#### Student Actions:
+```
+1. Open Focus Monitor extension
+2. Enter the 6-digit PIN in "Join Class" field
+3. Click "Join Class"
+4. Verify success message appears
+```
+
+#### Expected Database Changes:
+```sql
+-- Check class creation
+SELECT * FROM classes WHERE name LIKE 'UAT Test Session%';
+
+-- Verify student enrollments (should show 9 records)
+SELECT COUNT(*) FROM class_enrollments 
+WHERE class_id = [generated_class_id];
+```
+
+---
+
+### Phase 2: Live Focus Monitoring (15 minutes)
+
+#### Educator Actions:
+```
+1. Click "Start Session" for UAT Test class
+2. Monitor lecturer dashboard for real-time data
+3. Observe student focus statistics
+4. Note class performance metrics
+```
+
+#### Student Actions:
+```
+Timeline | Activity | Expected Focus Level
+---------|----------|--------------------
+0-5 min  | Look directly at screen, stay focused | 80-100% (Focused)
+6-10 min | Look away occasionally, mixed attention | 50-79% (Moderate)
+11-15 min| Simulate distraction, look away often | <50% (Distracted)
+```
+
+#### Real-time Data Monitoring:
+```sql
+-- Monitor focus logs in real-time
+SELECT user_name, status, accuracy, timestamp 
+FROM focus_logs 
+WHERE timestamp >= NOW() - INTERVAL '20 minutes'
+ORDER BY timestamp DESC;
+
+-- Check active session
+SELECT * FROM class_sessions 
+WHERE is_active = true;
+```
+
+---
+
+### Phase 3: Concurrent Performance Test (3 minutes)
+- **All 9 students** actively tracked simultaneously
+- **Educator** monitors system responsiveness
+- **Database** handles multiple concurrent uploads
+- **No system crashes or significant delays expected**
+
+### Phase 4: Session Termination (2 minutes)
+```
+1. Educator clicks "Stop Session"
+2. Students verify automatic tracking stops
+3. Review captured analytics data
+4. Export test results
+```
+
+---
+
+## 📊 Data Collection Framework
+
+### Supabase Database Monitoring
+
+#### Primary Tables to Track:
+```sql
+-- 1. User Registration Success
+SELECT role, COUNT(*) FROM users 
+WHERE created_at >= '[test_start_time]'
+GROUP BY role;
+
+-- 2. Class Enrollment Verification  
+SELECT u.name, ce.enrolled_at 
+FROM class_enrollments ce
+JOIN users u ON ce.user_id = u.id
+WHERE ce.class_id = '[test_class_id]';
+
+-- 3. Focus Detection Results
+SELECT 
+    user_name,
+    status,
+    AVG(accuracy) as avg_accuracy,
+    COUNT(*) as total_captures
+FROM focus_logs 
+WHERE timestamp LIKE '[test_date]%'
+GROUP BY user_name, status;
+
+-- 4. Session Performance Metrics
+SELECT 
+    start_time,
+    end_time,
+    EXTRACT(EPOCH FROM (end_time - start_time))/60 as duration_minutes
+FROM class_sessions 
+WHERE session_name LIKE 'UAT Test Session%';
+```
+
+### Success Metrics
+
+| Metric | Target | Measurement Method |
+|--------|--------|--------------------|
+| User Registration | 100% (10/10) | Count records in `users` table |
+| Class Enrollment | 100% (9/9) | Count records in `class_enrollments` |
+| Auto-session Detection | <10 seconds | Manual observation + timestamps |
+| Screenshot Processing | >85% success | Success rate in `focus_logs` |
+| Focus Detection Accuracy | Document actual results | Compare expected vs actual focus levels |
+| System Stability | Zero crashes | Manual observation |
+
+---
+
+## 🔍 Manual Observation Checklist
+
+### Student Experience Validation
+- [ ] **Installation:** Extension installs without errors
+- [ ] **Registration:** Account creation process smooth
+- [ ] **Class Joining:** PIN-based enrollment works correctly  
+- [ ] **Auto-detection:** Session starts automatically when educator begins
+- [ ] **UI Updates:** Focus status and timer display correctly
+- [ ] **Performance:** No browser slowdowns or crashes
+
+### Educator Experience Validation
+- [ ] **Class Creation:** New class created successfully with PIN
+- [ ] **Student Visibility:** All 9 enrolled students appear in dashboard
+- [ ] **Session Control:** Start/stop session functionality works
+- [ ] **Real-time Data:** Student focus levels update live
+- [ ] **Analytics:** Class performance metrics calculate correctly
+
+### Technical Performance Validation
+- [ ] **Concurrent Processing:** All 9 students tracked simultaneously
+- [ ] **Database Performance:** Supabase handles concurrent writes
+- [ ] **Response Times:** Screenshot processing <5 seconds average
+- [ ] **Data Accuracy:** Focus detection results match observed behavior
+
+---
+
+## 📈 Expected Results & Analysis
+
+### Quantitative Outcomes
+```
+Expected Database Records:
+- users: 10 new records (9 students + 1 educator)
+- classes: 1 new class record  
+- class_enrollments: 9 enrollment records
+- class_sessions: 1 session record with start/end times
+- focus_logs: ~270 focus analysis records (9 users × 30 captures)
+```
+
+### Focus Detection Distribution (Expected)
+```
+Time Period | Expected Focus Level Distribution
+0-5 min     | 80% Focused, 15% Moderate, 5% Distracted
+6-10 min    | 30% Focused, 50% Moderate, 20% Distracted  
+11-15 min   | 10% Focused, 20% Moderate, 70% Distracted
+```
+
+### Performance Benchmarks
+- **Session Start Delay:** <10 seconds for auto-detection
+- **Screenshot Processing:** <5 seconds average response time
+- **Database Writes:** <2 seconds for focus log storage
+- **UI Updates:** Real-time (<3 seconds) dashboard refresh
+
+---
+
+## ⚠️ Risk Management
+
+### Potential Issues & Mitigation
+| Risk | Probability | Impact | Mitigation Strategy |
+|------|-------------|--------|-------------------|
+| Internet connectivity failure | Medium | High | Test connections beforehand, have backup network |
+| Extension installation issues | Low | Medium | Pre-install and test 24 hours before UAT |
+| Database connection timeout | Low | High | Monitor Supabase status, have local backup logging |
+| Participant dropout | Medium | Low | Continue with remaining participants |
+| Browser compatibility issues | Low | Medium | Ensure all participants use Chrome 88+ |
+
+### Contingency Plans
+```
+IF database fails:
+  → Continue test with manual observation only
+  → Document all issues for analysis
+
+IF <7 students available:
+  → Proceed with available participants
+  → Note limitation in results
+
+IF educator system fails:
+  → Switch to backup educator account
+  → Resume from current test phase
+```
+
+---
+
+## 📋 Post-Test Data Extraction
+
+### Immediate Database Queries
+```sql
+-- UAT Results Summary
+WITH test_summary AS (
+  SELECT 
+    COUNT(DISTINCT user_name) as active_students,
+    COUNT(*) as total_screenshots,
+    AVG(accuracy) as avg_focus_accuracy,
+    MIN(timestamp) as test_start,
+    MAX(timestamp) as test_end
+  FROM focus_logs 
+  WHERE timestamp >= '[test_start_time]'
+)
+SELECT * FROM test_summary;
+
+-- Focus Distribution Analysis
+SELECT 
+  CASE 
+    WHEN accuracy >= 80 THEN 'Focused'
+    WHEN accuracy >= 50 THEN 'Moderate' 
+    ELSE 'Distracted'
+  END as focus_category,
+  COUNT(*) as count,
+  ROUND(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER(), 2) as percentage
+FROM focus_logs 
+WHERE timestamp >= '[test_start_time]'
+GROUP BY 1;
+
+-- Student Participation Report
+SELECT 
+  user_name,
+  COUNT(*) as screenshots_captured,
+  AVG(accuracy) as avg_accuracy,
+  MIN(timestamp) as first_capture,
+  MAX(timestamp) as last_capture
+FROM focus_logs 
+WHERE timestamp >= '[test_start_time]'
+GROUP BY user_name
+ORDER BY screenshots_captured DESC;
+```
+
+---
+
+## 📝 Test Completion Checklist
+
+### Technical Validation
+- [ ] All database tables populated correctly
+- [ ] Focus detection algorithms performed as expected
+- [ ] Multi-user concurrent processing successful
+- [ ] Real-time data synchronization verified
+- [ ] No data loss or corruption detected
+
+### User Experience Validation  
+- [ ] Installation process documented and improved
+- [ ] User interface feedback collected
+- [ ] System performance meets expectations
+- [ ] Accessibility and usability confirmed
+
+### Documentation & Reporting
+- [ ] Test results exported from Supabase
+- [ ] Performance metrics calculated and documented
+- [ ] Issues and limitations identified
+- [ ] Recommendations for improvements noted
+- [ ] UAT report prepared for stakeholders
+
+---
+
+## 🎯 Success Criteria
+
+**UAT is considered SUCCESSFUL if:**
+- ✅ ≥85% of planned participants complete the full test
+- ✅ ≥90% screenshot processing success rate
+- ✅ Zero system crashes or data corruption
+- ✅ Session auto-detection works for ≥80% of students
+- ✅ Real-time dashboard updates function correctly
+- ✅ All test data successfully stored in Supabase
+
+**UAT Results will be used for:**
+- System performance optimization
+- User experience improvements  
+- Production deployment planning
+- Academic research publication
+- Future development roadmap
+
+---
+
+*For questions about this UAT plan, please contact the development team or refer to the main project documentation.*
