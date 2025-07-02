@@ -4,7 +4,7 @@
 
 ### 📋 Test Overview
 - **Duration:** 30 minutes
-- **Participants:** 10 people (9 students + 1 educator) 
+- **Participants:** 6 people (5 students + 1 educator) 
 - **Objective:** Validate multi-user functionality in real classroom environment
 - **Data Collection:** All results captured in Supabase PostgreSQL database
 - **Test Environment:** Concurrent user testing with live data processing
