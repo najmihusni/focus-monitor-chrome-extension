@@ -21,7 +21,7 @@
 ### Participant Requirements
 | Role | Count | Requirements |
 |------|-------|-------------|
-| Students | 9 | Chrome browser, stable internet, webcam access |
+| Students | 5 | Chrome browser, stable internet, webcam access |
 | Educator | 1 | Chrome browser, class management access |
 
 ### Installation Steps
@@ -209,11 +209,11 @@ WHERE session_name LIKE 'UAT Test Session%';
 ### Quantitative Outcomes
 ```
 Expected Database Records:
-- users: 10 new records (9 students + 1 educator)
+- users: 6 new records (5 students + 1 educator)
 - classes: 1 new class record  
-- class_enrollments: 9 enrollment records
+- class_enrollments: 5 enrollment records
 - class_sessions: 1 session record with start/end times
-- focus_logs: ~270 focus analysis records (9 users × 30 captures)
+- focus_logs: ~270 focus analysis records (5 users × 30 captures)
 ```
 
 ### Focus Detection Distribution (Expected)
