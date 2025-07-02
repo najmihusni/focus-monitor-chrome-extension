@@ -8,6 +8,7 @@
 - **Objective:** Validate multi-user functionality in real classroom environment
 - **Data Collection:** All results captured in Supabase PostgreSQL database
 - **Test Environment:** Concurrent user testing with live data processing
+- **Render Link:** [Chrome Focus Login](https://chrome-focus-plugin.onrender.com)
 
 
 ## 🚀 Post-Test Form (5 minutes)
